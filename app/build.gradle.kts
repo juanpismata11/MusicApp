@@ -3,10 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 
-    kotlin("plugin.serialization") version "2.0.21"
-
-    id("com.google.devtools.ksp") version "2.2.20-2.0.4"
-    id("de.jensklingenberg.ktorfit") version "2.6.4"
+    id("org.jetbrains.kotlin.kapt")
+    id("com.google.dagger.hilt.android") version "2.52"
 }
 
 android {
@@ -63,7 +61,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     //Navigation
-    implementation("androidx.navigation:navigation-compose:2.7.3")
+    implementation("androidx.navigation:navigation-compose:2.8.3")
     // Icons
     implementation("org.jetbrains.compose.material:material-icons-extended:1.7.3")
 
@@ -71,11 +69,13 @@ dependencies {
     implementation("io.coil-kt.coil3:coil-compose:3.1.0")
     implementation("io.coil-kt.coil3:coil-network-ktor3:3.1.0")
 
-    implementation("com.russhwolf:multiplatform-settings-no-arg:1.3.0")
 
 
     implementation("com.squareup.retrofit2:retrofit:3.0.0")
-    implementation("io.ktor:ktor-client-core:2.3.3")
-    implementation("io.ktor:ktor-client-cio:2.3.3")
     implementation("com.squareup.retrofit2:converter-gson:3.0.0")
+
+    // HILT
+    implementation("com.google.dagger:hilt-android:2.57.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.57.2")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 }

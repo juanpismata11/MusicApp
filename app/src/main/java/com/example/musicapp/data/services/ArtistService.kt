@@ -1,6 +1,6 @@
 package com.example.musicapp.data.services
 
-import com.example.musicapp.data.remote.dto.ArtistDto
+import com.example.musicapp.data.remote.data.ArtistDto
 import retrofit2.http.GET
 
 interface ArtistService {

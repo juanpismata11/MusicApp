@@ -57,7 +57,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil3.compose.AsyncImage
-import com.example.musicapp.data.remote.dto.ArtistDto
+import com.example.musicapp.data.remote.data.ArtistDto
 import com.example.musicapp.data.services.ArtistService
 import com.example.musicapp.screens.components.CardsHomeScreen
 import com.example.musicapp.screens.components.TopNotchShapeComposable
