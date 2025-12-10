@@ -1,8 +1,8 @@
 package com.example.musicapp.data.remote.data
 
-data class LoginRequestDto(
-    val email: String,
-    val password: String
-)
+import com.google.gson.annotations.SerializedName
 
-/* ojo aquiiiii*/
+data class LoginRequestDto(
+    @SerializedName("email") val email: String,
+    @SerializedName("password") val password: String
+)

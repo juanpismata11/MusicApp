@@ -5,21 +5,20 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.musicapp.screens.ExploreScreen
 import com.example.musicapp.screens.HomeScreen
 import com.example.musicapp.screens.LoginScreen
+import com.example.musicapp.screens.SignUpScreen // <--- 1. IMPORTANTE: Importar la pantalla de registro
 import com.example.musicapp.ui.theme.MusicAppTheme
 import com.example.musicapp.ui.theme.Routes
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,19 +29,37 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = Routes.Explore
+                        startDestination = Routes.Login
                     ) {
                         composable(Routes.Home) {
                             HomeScreen(navController)
                         }
+
                         composable(Routes.Explore) {
                             ExploreScreen(navController)
                         }
+
                         composable(Routes.Login) {
-                            LoginScreen(navController)
+                            LoginScreen(
+                                onNavigateToSignUp = {
+                                    navController.navigate(Routes.Register)
+                                },
+                                onNavigateToHome = {
+                                    navController.navigate(Routes.Home) {
+                                        popUpTo(Routes.Login) { inclusive = true }
+                                    }
+                                }
+                            )
                         }
-                        composable(Routes.Signup) {
-                            LoginScreen(navController)
+
+                        composable(Routes.Register) {
+                            SignUpScreen(
+                                onNavigateToLogin = {
+                                    navController.navigate(Routes.Login) {
+                                        popUpTo(Routes.Register) { inclusive = true }
+                                    }
+                                }
+                            )
                         }
                     }
                 }

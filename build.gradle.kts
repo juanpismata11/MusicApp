@@ -7,5 +7,5 @@ plugins {
     kotlin("plugin.serialization") version "2.0.21" apply false
 
     id("com.google.devtools.ksp") version "2.2.20-2.0.4" apply false
-    id("de.jensklingenberg.ktorfit") version "2.6.4" apply false
+    id("com.google.dagger.hilt.android") version "2.57.1" apply false
 }

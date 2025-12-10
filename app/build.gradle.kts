@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 
     id("org.jetbrains.kotlin.kapt")
-    id("com.google.dagger.hilt.android") version "2.52"
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -78,6 +78,6 @@ dependencies {
 
     // HILT
     implementation("com.google.dagger:hilt-android:2.57.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.57.2")
+    kapt("com.google.dagger:hilt-android-compiler:2.57.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 }
