@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,7 +36,7 @@ fun SongsCard(
     Card(
         shape = RoundedCornerShape(16.dp),
         modifier = Modifier
-            .size(width = 165.dp, height = 120.dp),
+            .size(width = 175.dp, height = 120.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
@@ -66,7 +67,8 @@ fun SongsCard(
                 Text(
                     text = subtitle,
                     color = Color.White,
-                    fontSize = 10.sp
+                    fontSize = 8.sp,
+                    fontWeight = FontWeight.Bold
                 )
             }
         }

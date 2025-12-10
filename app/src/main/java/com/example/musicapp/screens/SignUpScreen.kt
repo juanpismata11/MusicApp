@@ -32,9 +32,9 @@ fun SignUpScreen() {
         modifier = Modifier
             .fillMaxSize()
             .background(LightBackground)
-            .padding(horizontal = 24.dp), // Padding general
+            .padding(horizontal = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center // Centramos el contenido verticalmente
+        verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = "Crea una Cuenta",

@@ -46,6 +46,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -139,19 +140,20 @@ fun HomeScreen(navController: NavController) {
                     modifier = Modifier.padding(vertical = 10.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Box(
+                    AsyncImage(
+                        model = "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGVyZmlsfGVufDB8fDB8fHww",
+                        contentDescription = "profile",
+                        contentScale = ContentScale.Crop,
                         modifier = Modifier
                             .size(60.dp)
-                            .background(Color.Black, shape = CircleShape)
+                            .clip(CircleShape)
                     )
 
                     Text(
                         text = "Juan Pablo",
                         fontSize = 32.sp,
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(start = 20.dp)
-
+                        modifier = Modifier.padding(start = 20.dp)
                     )
                 }
 
