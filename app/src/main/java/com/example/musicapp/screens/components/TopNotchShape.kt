@@ -28,8 +28,8 @@ class TopNotchShape(
                 val width = size.width
 
 
-                val notchWidth = cutoutRadius * 3.5f // El ancho de la muesca (e.g., 70.dp)
-                val notchDepth = cutoutRadius * 1.25f // **¡Clave! Profundidad de la muesca (e.g., 10.dp)**
+                val notchWidth = cutoutRadius * 3.5f
+                val notchDepth = cutoutRadius * 1.25f
 
                 val startX = centerX - (notchWidth / 2)
                 val endX = centerX + (notchWidth / 2)
@@ -46,10 +46,8 @@ class TopNotchShape(
                     y2 = 0f
                 )
 
-                // 4. Línea hasta la esquina superior derecha
                 lineTo(width - cornerSize, 0f)
 
-                // 5. Esquina superior derecha (Arco)
                 arcTo(
                     rect = Rect(
                         left = width - corner2X,
@@ -62,7 +60,6 @@ class TopNotchShape(
                     forceMoveTo = false
                 )
 
-                // 6. Dibujar el resto de la forma (bordes inferiores y laterales)
                 lineTo(width, height - cornerSize)
                 arcTo(
                     rect = Rect(
@@ -88,7 +85,6 @@ class TopNotchShape(
                     forceMoveTo = false
                 )
                 lineTo(0f, cornerSize)
-                // Esquina superior izquierda
                 arcTo(
                     rect = Rect(
                         left = 0f,

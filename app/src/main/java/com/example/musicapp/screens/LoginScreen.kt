@@ -12,10 +12,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.musicapp.components.AuthTextField
-import com.example.musicapp.components.BlueButton
 import com.example.musicapp.ui.theme.*
 import androidx.navigation.compose.rememberNavController
+import com.example.musicapp.screens.components.AuthTextField
+import com.example.musicapp.screens.components.BlueButton
 
 @Composable
 fun LoginScreen(navController: NavController) {

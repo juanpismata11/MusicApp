@@ -21,3 +21,12 @@ val grayIconPlaceholder = Color(0xFFB3B3B3)
 
 val backgroundColor = Color(0xFF151727)
 
+// Colores del mp3
+val PlayerCasingColor = Color(0xFF383B51)
+val PlayerDisplayColor = Color(0xFF151727)
+val SongTitleBarColor = Color(0xFF3E4555)
+val TextColorPrimary = Color(0xFFE0E0E0)
+val TextColorSecondary = Color(0xFFB8C6D5)
+val DotColor = Color(0xFF262C3F)
+val BorderColor = Color(0xFF666D89)
+
