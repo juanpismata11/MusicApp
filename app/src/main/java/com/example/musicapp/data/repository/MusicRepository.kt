@@ -1,4 +1,4 @@
-package com.example.musicapp.domain.repository
+package com.example.musicapp.data.repository
 
 import com.example.musicapp.domain.model.Album
 import com.example.musicapp.domain.model.Artist

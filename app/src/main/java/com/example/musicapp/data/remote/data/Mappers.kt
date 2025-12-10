@@ -1,8 +1,8 @@
 package com.example.musicapp.data.remote.mappers
 
-import com.example.musicapp.data.remote.dto.AlbumDto
-import com.example.musicapp.data.remote.dto.ArtistDto
-import com.example.musicapp.data.remote.dto.SongDto
+import com.example.musicapp.data.remote.data.AlbumDto
+import com.example.musicapp.data.remote.data.ArtistDto
+import com.example.musicapp.data.remote.data.SongDto
 import com.example.musicapp.domain.model.Album
 import com.example.musicapp.domain.model.Artist
 import com.example.musicapp.domain.model.Song

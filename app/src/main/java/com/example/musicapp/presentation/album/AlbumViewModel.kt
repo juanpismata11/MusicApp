@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.musicapp.domain.model.Album
 import com.example.musicapp.domain.model.Artist
 import com.example.musicapp.domain.model.Song
-import com.example.musicapp.domain.repository.MusicRepository
+import com.example.musicapp.data.repository.MusicRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

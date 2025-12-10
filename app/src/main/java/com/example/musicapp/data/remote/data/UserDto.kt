@@ -1,4 +1,4 @@
-package com.example.musicapp.data.remote.dto
+package com.example.musicapp.data.remote.data
 
 data class UserDto(
     val id: Int,

@@ -6,7 +6,6 @@ import com.example.musicapp.data.remote.data.SongDto
 import retrofit2.http.GET
 
 interface MusicApi {
-
     @GET("/albums")
     suspend fun getAlbums(): List<AlbumDto>
 
