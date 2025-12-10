@@ -1,49 +1,46 @@
-package com.example.musicapp.data.remote.dto
+package com.example.musicapp.data.remote.mappers
 
-import com.example.musicapp.domain.model.*
+import com.example.musicapp.data.remote.dto.AlbumDto
+import com.example.musicapp.data.remote.dto.ArtistDto
+import com.example.musicapp.data.remote.dto.SongDto
+import com.example.musicapp.domain.model.Album
+import com.example.musicapp.domain.model.Artist
+import com.example.musicapp.domain.model.Song
 
-fun ArtistDto.toDomain(): Artist =
-    Artist(
+// ---------------- ARTIST ----------------
+
+fun ArtistDto.toArtist(): Artist {
+    return Artist(
         id = id,
         name = name,
-        bio = bio,
-        country = country
-    )
-
-fun AlbumDto.toDomain(): Album =
-    Album(
-        id = id,
-        title = title,
-        description = description,
-        coverUrl = cover_url,
-        artistId = artist_id
-    )
-
-fun SongDto.toDomain(baseUrl: String): Song {
-    // audio_path viene como "audio/archivo.mp3"
-    // La API sirve el audio en /media
-    val fullUrl = audio_path?.let { "$baseUrl$it" } // luego pasamos "http://10.0.2.2:8000/media/"
-    return Song(
-        id = id,
-        title = title,
-        duration = duration,
-        albumId = album_id,
-        artistId = artist_id,
-        audioUrl = fullUrl
+        bio = bio ?: "",
+        country = country ?: "",
+        artistPic = artist_pic ?: ""
     )
 }
 
-fun FavoritesDto.toDomain(): Favorites =
-    Favorites(
-        artists = artists,
-        albums = albums,
-        songs = songs
-    )
+// ---------------- ALBUM ----------------
 
-fun UserDto.toDomain(): User =
-    User(
+fun AlbumDto.toAlbum(): Album {
+    return Album(
         id = id,
-        username = username,
-        email = email,
-        favorites = favorites.toDomain()
+        title = title,
+        description = description ?: "",
+        coverUrl = cover_url ?: "",
+        artistId = artist_id,
+        category = category
     )
+}
+
+// ---------------- SONG ----------------
+
+fun SongDto.toSong(): Song {
+    return Song(
+        id = id,
+        title = title,
+        duration = duration ?: "",
+        albumId = album_id,
+        artistId = artist_id,
+        audioUrl = audio_path ?: ""
+    )
+}

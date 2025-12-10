@@ -4,5 +4,6 @@ data class ArtistDto(
     val id: Int,
     val name: String,
     val bio: String?,
-    val country: String?
+    val country: String?,
+    val artist_pic: String?
 )

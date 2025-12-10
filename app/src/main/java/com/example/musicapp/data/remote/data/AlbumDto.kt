@@ -4,6 +4,7 @@ data class AlbumDto(
     val id: Int,
     val title: String,
     val description: String?,
+    val category: String,
     val cover_url: String?,
-    val artist_id: Int?
+    val artist_id: Int
 )

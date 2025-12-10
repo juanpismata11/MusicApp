@@ -3,12 +3,14 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 
-    kotlin("plugin.serialization") version "2.0.21"
+    kotlin("kapt")
 
+    id("com.google.dagger.hilt.android") version "2.52"
+
+    kotlin("plugin.serialization") version "2.0.21"
     id("com.google.devtools.ksp") version "2.2.20-2.0.4"
     id("de.jensklingenberg.ktorfit") version "2.6.4"
 }
-
 android {
     namespace = "com.example.musicapp"
     compileSdk = 36
@@ -79,5 +81,12 @@ dependencies {
     implementation("io.coil-kt.coil3:coil-network-ktor3:3.1.0")
 
     implementation("com.russhwolf:multiplatform-settings-no-arg:1.3.0")
+
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.52")
+    kapt("com.google.dagger:hilt-android-compiler:2.52")
+
+    // Hilt + Navigation Compose (para hiltViewModel() en Composables)
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
 }
