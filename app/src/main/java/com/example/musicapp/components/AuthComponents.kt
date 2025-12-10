@@ -69,3 +69,5 @@ fun BlueButton(text: String, onClick: () -> Unit) {
         Text(text, fontWeight = FontWeight.Bold, color = PureWhite)
     }
 }
+
+// Prueba
