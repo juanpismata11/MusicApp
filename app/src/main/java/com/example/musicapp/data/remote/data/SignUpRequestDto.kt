@@ -1,7 +1,7 @@
 package com.example.musicapp.data.remote.data
 
-data class UserDto(
-    val id: Int,
+data class SignupRequestDto(
     val username: String,
     val email: String,
+    val password: String
 )

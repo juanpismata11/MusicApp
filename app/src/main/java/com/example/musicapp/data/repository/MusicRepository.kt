@@ -1,16 +1,22 @@
 package com.example.musicapp.data.repository
 
-import com.example.musicapp.domain.model.Album
-import com.example.musicapp.domain.model.Artist
-import com.example.musicapp.domain.model.Song
+import com.example.musicapp.data.remote.data.AlbumDto
+import com.example.musicapp.data.remote.data.ArtistDto
+import com.example.musicapp.data.remote.data.SongDto
+import com.example.musicapp.data.remote.data.LoginRequestDto
+import com.example.musicapp.data.remote.data.SignupRequestDto
+import com.example.musicapp.data.remote.data.UserDto
 
 interface MusicRepository {
 
-    suspend fun getAlbumById(id: Int): Album?
-    suspend fun getArtistById(id: Int): Artist?
-    suspend fun getSongsByAlbum(id: Int): List<Song>
+    suspend fun login(loginRequest: LoginRequestDto): Result<UserDto>
+    suspend fun signup(signupRequest: SignupRequestDto): Result<UserDto>
 
-    suspend fun getAllAlbums(): List<Album>
-    suspend fun getAllArtists(): List<Artist>
-    suspend fun getAllSongs(): List<Song>
+    suspend fun getAlbumById(id: Int): AlbumDto?
+    suspend fun getArtistById(id: Int): ArtistDto?
+    suspend fun getSongsByAlbum(id: Int): List<SongDto>
+
+    suspend fun getAllAlbums(): List<AlbumDto>
+    suspend fun getAllArtists(): List<ArtistDto>
+    suspend fun getAllSongs(): List<SongDto>
 }
