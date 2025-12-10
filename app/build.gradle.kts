@@ -3,13 +3,10 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 
-    kotlin("kapt")
+    id("org.jetbrains.kotlin.kapt")
 
     id("com.google.dagger.hilt.android") version "2.52"
 
-    kotlin("plugin.serialization") version "2.0.21"
-    id("com.google.devtools.ksp") version "2.2.20-2.0.4"
-    id("de.jensklingenberg.ktorfit") version "2.6.4"
 }
 android {
     namespace = "com.example.musicapp"
@@ -64,29 +61,24 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    //Navigation
-    implementation("androidx.navigation:navigation-compose:2.7.3")
+    // Navigation
+    implementation("androidx.navigation:navigation-compose:2.8.3")
+
     // Icons
-    implementation("org.jetbrains.compose.material:material-icons-extended:1.7.3")
-// Ktorfit
-    implementation("de.jensklingenberg.ktorfit:ktorfit-lib:2.6.4")
+    implementation("androidx.compose.material:material-icons-extended:1.7.5")
 
-// Ktor Client
-    implementation("io.ktor:ktor-client-core:3.3.1")
-    implementation("io.ktor:ktor-client-content-negotiation:3.3.1")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:3.3.1")
+    // RETROFIT
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-// Coil 3
-    implementation("io.coil-kt.coil3:coil-compose:3.1.0")
-    implementation("io.coil-kt.coil3:coil-network-ktor3:3.1.0")
+    // COIL 3
+    implementation("io.coil-kt.coil3:coil-compose:3.0.4")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.4")
 
-    implementation("com.russhwolf:multiplatform-settings-no-arg:1.3.0")
+    // HILT
+    implementation("com.google.dagger:hilt-android:2.57.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.57.2")
 
-    // Hilt
-    implementation("com.google.dagger:hilt-android:2.52")
-    kapt("com.google.dagger:hilt-android-compiler:2.52")
-
-    // Hilt + Navigation Compose (para hiltViewModel() en Composables)
+    // Hilt + Navigation Compose
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
-
 }
