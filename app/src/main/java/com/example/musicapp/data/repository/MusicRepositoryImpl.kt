@@ -3,6 +3,8 @@ package com.example.musicapp.data.repository
 import com.example.musicapp.data.remote.MusicApi
 import com.example.musicapp.data.remote.data.AlbumDto
 import com.example.musicapp.data.remote.data.ArtistDto
+import com.example.musicapp.data.remote.data.LikeDto
+import com.example.musicapp.data.remote.data.LikesGroupedDto
 import com.example.musicapp.data.remote.data.SongDto
 import com.example.musicapp.data.remote.data.LoginRequestDto
 import com.example.musicapp.data.remote.data.SignupRequestDto
@@ -81,4 +83,20 @@ class MusicRepositoryImpl @Inject constructor(
             emptyList()
         }
     }
+
+    override suspend fun getUserLikes(userId: Int): Result<LikesGroupedDto> {
+        return try {
+            val response = api.getUserLikes(userId)
+            Result.success(response)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Result.failure(e)
+        }
+    }
 }
+
+
+
+
+    // GET /users/{user_id}/likes
+
