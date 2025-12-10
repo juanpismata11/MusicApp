@@ -1,4 +1,4 @@
-package com.example.musicapp.ui.screens
+package com.example.musicapp.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -9,9 +9,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.musicapp.components.AuthTextField
+import com.example.musicapp.components.BlueButton
 import com.example.musicapp.ui.theme.*
+import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun LoginScreen(navController: NavController) {
@@ -97,4 +101,11 @@ fun LoginScreen(navController: NavController) {
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun LoginScreenPreview() {
+    val navController = rememberNavController()
+    LoginScreen(navController = navController)
 }
