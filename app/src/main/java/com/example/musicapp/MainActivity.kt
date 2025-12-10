@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
                         composable(Routes.Login) {
                             LoginScreen(
                                 onNavigateToSignUp = {
-                                    navController.navigate(Routes.Register)
+                                    navController.navigate(Routes.Signup)
                                 },
                                 onNavigateToHome = {
                                     navController.navigate(Routes.Home) {
@@ -52,11 +52,11 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
-                        composable(Routes.Register) {
+                        composable(Routes.Signup) {
                             SignUpScreen(
                                 onNavigateToLogin = {
                                     navController.navigate(Routes.Login) {
-                                        popUpTo(Routes.Register) { inclusive = true }
+                                        popUpTo(Routes.Signup) { inclusive = true }
                                     }
                                 }
                             )
