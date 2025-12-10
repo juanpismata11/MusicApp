@@ -54,7 +54,6 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.navigation.runtime.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -64,9 +63,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     //Navigation
-    //implementation(libs.navigation.compose)
     implementation("androidx.navigation:navigation-compose:2.7.3")
-
     // Icons
     implementation("org.jetbrains.compose.material:material-icons-extended:1.7.3")
 // Ktorfit
@@ -82,4 +79,5 @@ dependencies {
     implementation("io.coil-kt.coil3:coil-network-ktor3:3.1.0")
 
     implementation("com.russhwolf:multiplatform-settings-no-arg:1.3.0")
+
 }

@@ -1,6 +1,7 @@
 package com.example.musicapp.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -43,12 +44,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.musicapp.screens.components.CardsHomeScreen
 import com.example.musicapp.screens.components.TopNotchShapeComposable
+import com.example.musicapp.ui.theme.Routes
 import com.example.musicapp.ui.theme.gray50
 
 @Composable
-fun MusicHomeScreen() {
+fun HomeScreen(navController: NavController) {
     val backgroundColor = Color(0xFF151727)
     val cardColor = Color(0xFFE5E7EF)
 
@@ -185,19 +189,22 @@ fun MusicHomeScreen() {
                             .padding(vertical = 12.dp),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ){
-                        CardsHomeScreen(title = "Mi Libreria")
-                        CardsHomeScreen(title = "Favoritos")
+                        CardsHomeScreen(title = "Mi Libreria") //esto seria lo de favoritos
+                        CardsHomeScreen(title = "No se")
                     }
 
 
-                    Row() {
+                    Row {
                         Card(
                             shape = RoundedCornerShape(20.dp),
                             colors = CardDefaults.cardColors(containerColor = backgroundColor),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(80.dp)
-                        ){
+                                .clickable {
+                                    navController.navigate(Routes.Explore)
+                                }
+                        ) {
                             Box(
                                 modifier = Modifier.fillMaxSize()
                             ) {
@@ -218,12 +225,11 @@ fun MusicHomeScreen() {
 
                                     Icon(
                                         imageVector = Icons.Filled.ArrowForward,
-                                        contentDescription = "Ir a Favoritos",
+                                        contentDescription = "Ir a Descubrimientos",
                                         tint = Color.White,
                                         modifier = Modifier
                                             .size(24.dp)
                                             .offset(x = (-10).dp)
-
                                     )
                                 }
                             }
@@ -242,6 +248,6 @@ fun MusicHomeScreen() {
 
 @Preview(showBackground = true)
 @Composable
-fun MusicHomeScreenPreview() {
-    MusicHomeScreen()
+fun HomeScreenPreview() {
+    HomeScreen(navController = rememberNavController())
 }

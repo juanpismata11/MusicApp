@@ -1,6 +1,6 @@
-package com.example.musicapp.components
 
-import androidx.compose.foundation.background
+package com.example.musicapp.screens.components
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
