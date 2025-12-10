@@ -4,108 +4,130 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.navigation.NavController
-import com.example.musicapp.ui.theme.*
 import androidx.navigation.compose.rememberNavController
-import com.example.musicapp.screens.components.AuthTextField
-import com.example.musicapp.screens.components.BlueButton
+import com.example.musicapp.ui.theme.*
+import com.example.musicapp.screens.components.CustomMusicInput
 
 @Composable
 fun LoginScreen(navController: NavController) {
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
 
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBlue)
+            .background(LightBackground)
+            .padding(horizontal = 24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(24.dp)
-                .background(
-                    LightBackground,
-                    shape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp)
-                ),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Spacer(
-                modifier = Modifier
-                    .height(40.dp)
-            )
+        Text(
+            text = "¡Bienvenido\nde Nuevo!",
+            style = MaterialTheme.typography.headlineLarge.copy(
+                fontWeight = FontWeight.ExtraBold,
+                color = InputDark,
+                fontSize = 32.sp,
+                lineHeight = 40.sp
+            ),
+            textAlign = TextAlign.Center
+        )
 
-            Text(
-                text = "Bienvenido de Nuevo!",
-                style = MaterialTheme.typography.headlineMedium.copy(
-                    fontWeight = FontWeight.Bold,
-                    color = DarkBlue
-                ),
-                textAlign = TextAlign.Center
-            )
-            Spacer(
-                modifier = Modifier
-                    .height(20.dp)
-            )
+        Spacer(modifier = Modifier.height(50.dp))
 
-            AuthTextField(
-                label = "Email",
-                placeholder = "usuario@correo.com"
-            )
+        CustomMusicInput(
+            label = "Email",
+            placeholder = "ejemplo@correo.com",
+            value = email,
+            onValueChange = { email = it },
+            keyboardType = KeyboardType.Email
+        )
 
-            Spacer(
-                modifier = Modifier
-                    .height(12.dp)
-            )
+        Spacer(modifier = Modifier.height(20.dp))
 
-            AuthTextField(
-                label = "Contraseña",
-                placeholder = "******",
-                isPassword = true
-            )
-            Spacer(
-                modifier = Modifier
-                    .height(10.dp)
-            )
+        CustomMusicInput(
+            label = "Contraseña",
+            placeholder = "**********",
+            value = password,
+            onValueChange = { password = it },
+            isPassword = true
+        )
 
+        Spacer(modifier = Modifier.height(16.dp))
+
+        TextButton(onClick = { /* Acción recuperar pass */ }) {
             Text(
                 text = "¿Olvidaste tu contraseña?",
-                color = DarkBlue,
-                modifier = Modifier
-                    .align(Alignment.End),
-                style = MaterialTheme.typography.bodySmall
+                color = InputDark,
+                fontWeight = FontWeight.Medium,
+                fontSize = 14.sp
             )
-            Spacer(
-                modifier = Modifier
-                    .height(25.dp)
-            )
+        }
 
-            BlueButton(text = "Iniciar Sesión") {
-                navController.navigate("home")
-            }
-            Spacer(
-                modifier = Modifier
-                    .height(20.dp)
-            )
+        Spacer(modifier = Modifier.height(24.dp))
 
-            TextButton(onClick = { navController.navigate("register") }) {
+        Button(
+            onClick = { navController.navigate("home") },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(55.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Bluey
+            ),
+            shape = RoundedCornerShape(16.dp)
+        ) {
+            Text(
+                text = "INGRESAR",
+                color = PureWhite,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        HorizontalDivider(
+            thickness = 1.dp,
+            color = LightGray
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                text = "¿No tienes una cuenta? ",
+                color = InputDark,
+                fontSize = 14.sp
+            )
+            TextButton(
+                onClick = { navController.navigate("register") },
+                contentPadding = PaddingValues(0.dp)
+            ) {
                 Text(
-                    text = "¿No tienes una cuanta? Regístrate",
+                    text = "Regístrate Aquí",
                     color = LinkBlue,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 14.sp
                 )
             }
         }
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, widthDp = 360, heightDp = 800)
 @Composable
-fun LoginScreenPreview() {
+fun LoginScreenPreviewNoLogo() {
     val navController = rememberNavController()
-   LoginScreen(navController = navController)
+    MusicAppTheme(darkTheme = false) {
+        LoginScreen(navController = navController)
+    }
 }

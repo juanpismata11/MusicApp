@@ -20,11 +20,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.musicapp.ui.theme.Bluey
 import com.example.musicapp.ui.theme.InputDark
 import com.example.musicapp.ui.theme.LightGray
+import com.example.musicapp.ui.theme.MusicAppTheme
 import com.example.musicapp.ui.theme.PlaceholderGray
 import com.example.musicapp.ui.theme.PureWhite
 
@@ -39,19 +41,19 @@ fun CustomMusicInput(
 ) {
     val componentHeight = 72.dp
     val cornerRadius = 16.dp
+    val shift = 5.dp
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(componentHeight + 4.dp),
-        contentAlignment = Alignment.TopCenter
+            .padding(top = shift, end = shift)
+            .height(componentHeight),
+        contentAlignment = Alignment.BottomStart
     ) {
-        // CAPA INFERIOR (El borde/sombra azul)
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(componentHeight)
-                .offset(y = 4.dp),
+                .height(componentHeight),
             shape = RoundedCornerShape(cornerRadius),
             color = Bluey
         ) {}
@@ -59,7 +61,8 @@ fun CustomMusicInput(
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(componentHeight),
+                .height(componentHeight)
+                .offset(x = shift, y = -shift),
             shape = RoundedCornerShape(cornerRadius),
             color = InputDark
         ) {
@@ -101,6 +104,22 @@ fun CustomMusicInput(
                     }
                 )
             }
+        }
+    }
+}
+
+@Preview(showBackground = true, widthDp = 360, heightDp = 150)
+@Composable
+fun CustomMusicInputPreview() {
+    MusicAppTheme(darkTheme = false) {
+        Box(modifier = Modifier.padding(20.dp), contentAlignment = Alignment.Center) {
+            CustomMusicInput(
+                label = "Correo Electrónico",
+                placeholder = "ejemplo@usuario.com",
+                value = "",
+                onValueChange = {},
+                isPassword = false
+            )
         }
     }
 }
