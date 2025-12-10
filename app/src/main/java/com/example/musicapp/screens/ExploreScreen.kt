@@ -61,7 +61,7 @@ fun ExploreScreen(navController: NavController){
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 32.dp)
+                    .padding(top = 40.dp)
             ) {
                 Icon(
                     imageVector = Icons.Filled.ArrowBack,
@@ -87,7 +87,7 @@ fun ExploreScreen(navController: NavController){
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 40.dp)
+                .padding(top = 80.dp)
                 .clip(TopNotchShapeComposable(
                     cornerRadius = 16.dp,
                     cutoutRadius = 20.dp
