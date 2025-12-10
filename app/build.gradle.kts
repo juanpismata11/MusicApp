@@ -4,10 +4,9 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 
     id("org.jetbrains.kotlin.kapt")
-
     id("com.google.dagger.hilt.android") version "2.52"
-
 }
+
 android {
     namespace = "com.example.musicapp"
     compileSdk = 36
@@ -61,24 +60,22 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    // Navigation
+    //Navigation
     implementation("androidx.navigation:navigation-compose:2.8.3")
-
     // Icons
-    implementation("androidx.compose.material:material-icons-extended:1.7.5")
+    implementation("org.jetbrains.compose.material:material-icons-extended:1.7.3")
 
-    // RETROFIT
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+// Coil 3
+    implementation("io.coil-kt.coil3:coil-compose:3.1.0")
+    implementation("io.coil-kt.coil3:coil-network-ktor3:3.1.0")
 
-    // COIL 3
-    implementation("io.coil-kt.coil3:coil-compose:3.0.4")
-    implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.4")
+
+
+    implementation("com.squareup.retrofit2:retrofit:3.0.0")
+    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
 
     // HILT
     implementation("com.google.dagger:hilt-android:2.57.1")
     kapt("com.google.dagger:hilt-android-compiler:2.57.2")
-
-    // Hilt + Navigation Compose
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 }
