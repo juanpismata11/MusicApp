@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.musicapp.screens.components.AlbumMiniCard
 import com.example.musicapp.screens.components.SongsCard
 import com.example.musicapp.screens.components.TopNotchShapeComposable
 import com.example.musicapp.ui.theme.Routes
@@ -238,15 +239,59 @@ fun ExploreScreen(navController: NavController){
                             color = Color.Black
                         )
                     }
+//API
+                    val albums = listOf(
+                        Triple(1, "ARENA", "Pixel Grip"),
+                        Triple(2, "Dawn FM", "The Weeknd"),
+                        Triple(3, "Fine Line", "Harry Styles"),
+                        Triple(4, "Born to Die", "Lana del Rey")
+                    )
 
+                    Text(
+                        text = "Álbumes recomendados",
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(bottom = 12.dp)
+                    )
 
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                        albums.take(2).forEach { (id, title, artist) ->
+                            AlbumMiniCard(
+                                albumId = id,
+                                albumTitle = title,
+                                artistName = artist,
+                                imageUrl = "https://via.placeholder.com/300.png",
+                                onClick = { navController.navigate("album/$it")
+                                }
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                        albums.drop(2).take(2).forEach { (id, title, artist) ->
+                            AlbumMiniCard(
+                                albumId = id,
+                                albumTitle = title,
+                                artistName = artist,
+                                imageUrl = "https://via.placeholder.com/300.png",
+                                onClick = { albumId ->
+                                    navController.navigate("album/$albumId")
+                                }
+                            )
+                        }
+                    }
                 }
-
             }
-
         }
     }
-
 }
 
 
