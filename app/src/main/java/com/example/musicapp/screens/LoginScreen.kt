@@ -103,9 +103,9 @@ fun LoginScreen(navController: NavController) {
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun LoginScreenPreview() {
-//    val navController = rememberNavController()
-//    LoginScreen(navController = navController)
-//}
+@Preview(showBackground = true)
+@Composable
+fun LoginScreenPreview() {
+    val navController = rememberNavController()
+   LoginScreen(navController = navController)
+}

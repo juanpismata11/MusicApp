@@ -70,4 +70,4 @@ fun BlueButton(text: String, onClick: () -> Unit) {
     }
 }
 
-// Prueba
+// Prueba 2
