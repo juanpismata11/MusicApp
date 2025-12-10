@@ -34,11 +34,7 @@ class MusicRepositoryImpl @Inject constructor(
         }
     }
 
-    // --- DATOS DE MÚSICA (Directo DTOs) ---
-
     override suspend fun getAlbumById(id: Int): AlbumDto? {
-        // Obtenemos la lista y filtramos manualmente porque tu API Python
-        // (según el código que pasaste) no tiene un endpoint para un solo álbum específico.
         return try {
             api.getAlbums().find { it.id == id }
         } catch (e: Exception) {
@@ -56,8 +52,7 @@ class MusicRepositoryImpl @Inject constructor(
 
     override suspend fun getSongsByAlbum(id: Int): List<SongDto> {
         return try {
-            // Filtramos las canciones que coincidan con el albumId
-            api.getSongs().filter { it.albumId == id }
+            api.getSongs().filter { it.album_id == id }
         } catch (e: Exception) {
             emptyList()
         }
