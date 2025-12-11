@@ -5,76 +5,83 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.musicapp.data.local.SessionManager
 import com.example.musicapp.screens.ExploreScreen
 import com.example.musicapp.screens.HomeScreen
+import com.example.musicapp.screens.LibraryScreen
 import com.example.musicapp.screens.LoginScreen
 import com.example.musicapp.screens.SignUpScreen
-import com.example.musicapp.screens.LibraryScreen
-import com.example.musicapp.screens.AlbumScreen
 import com.example.musicapp.ui.theme.MusicAppTheme
 import com.example.musicapp.ui.theme.Routes
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.compose.foundation.layout.padding
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var sessionManager: SessionManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             MusicAppTheme {
-                val navController = rememberNavController()
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    NavHost(
-                        navController = navController,
-                        startDestination = Routes.Login,
-                        modifier = Modifier.padding(innerPadding)
+                val userId by sessionManager.userId.collectAsState(initial = -1)
 
+                if (userId != -1) {
+                    val navController = rememberNavController()
 
-                    ) {
-                        composable(Routes.Home) {
-                            HomeScreen(navController)
-                        }
+                    val startDestination = if (userId == null) Routes.Login else Routes.Home
 
-                        composable(Routes.Explore) {
-                            ExploreScreen(navController)
-                        }
+                    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                        NavHost(
+                            navController = navController,
+                            startDestination = startDestination,
+                            modifier = Modifier.padding(innerPadding)
+                        ) {
+                            composable(Routes.Home) {
+                                HomeScreen(navController)
+                            }
 
-                        composable(Routes.Library) {
-                            LibraryScreen(navController)
-                        }
+                            composable(Routes.Explore) {
+                                ExploreScreen(navController)
+                            }
 
-                        composable("album/{albumId}") { backStackEntry ->
-                            val albumId = backStackEntry.arguments?.getString("albumId")?.toInt() ?: 0
-                            AlbumScreen(navController = navController, albumId = albumId)
-                        }
+                            composable(Routes.Library) {
+                                LibraryScreen(navController)
+                            }
 
-                        composable(Routes.Login) {
-                            LoginScreen(
-                                onNavigateToSignUp = {
-                                    navController.navigate(Routes.Signup)
-                                },
-                                onNavigateToHome = {
-                                    navController.navigate(Routes.Home) {
-                                        popUpTo(Routes.Login) { inclusive = true }
+                            composable(Routes.Login) {
+                                LoginScreen(
+                                    onNavigateToSignUp = {
+                                        navController.navigate(Routes.Signup)
+                                    },
+                                    onNavigateToHome = {
+                                        navController.navigate(Routes.Home) {
+                                            popUpTo(Routes.Login) { inclusive = true }
+                                        }
                                     }
-                                }
-                            )
-                        }
+                                )
+                            }
 
-                        composable(Routes.Signup) {
-                            SignUpScreen(
-                                onNavigateToLogin = {
-                                    navController.navigate(Routes.Login) {
-                                        popUpTo(Routes.Signup) { inclusive = true }
+                            composable(Routes.Signup) {
+                                SignUpScreen(
+                                    onNavigateToLogin = {
+                                        navController.navigate(Routes.Login) {
+                                            popUpTo(Routes.Signup) { inclusive = true }
+                                        }
                                     }
-                                }
-                            )
+                                )
+                            }
                         }
                     }
                 }
