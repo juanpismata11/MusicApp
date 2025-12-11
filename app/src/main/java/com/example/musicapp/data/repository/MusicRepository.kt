@@ -16,7 +16,7 @@ interface MusicRepository {
     suspend fun getArtistById(id: Int): ArtistDto?
     suspend fun getSongsByAlbum(id: Int): List<SongDto>
 
-    suspend fun getArtists(): Result<List<ArtistDto>>
-    suspend fun getAlbums(): Result<List<AlbumDto>>
-    suspend fun getSongs(): Result<List<SongDto>>
+    suspend fun getAllAlbums(): List<AlbumDto>
+    suspend fun getAllArtists(): List<ArtistDto>
+    suspend fun getAllSongs(): List<SongDto>
 }
