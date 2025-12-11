@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = Routes.Login
+                        startDestination = Routes.Home
                     ) {
                         composable(Routes.Home) {
                             HomeScreen(navController)

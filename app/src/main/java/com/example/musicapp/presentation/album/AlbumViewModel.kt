@@ -39,7 +39,7 @@ class AlbumViewModel @Inject constructor(
                     return@launch
                 }
 
-                val artist = repo.getArtistById(album.artist_id)
+                val artist = repo.getArtistById(album.artistId)
 
                 val songs = repo.getSongsByAlbum(albumId)
 

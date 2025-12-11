@@ -52,7 +52,7 @@ class MusicRepositoryImpl @Inject constructor(
 
     override suspend fun getSongsByAlbum(id: Int): List<SongDto> {
         return try {
-            api.getSongs().filter { it.album_id == id }
+            api.getSongs().filter { it.albumId == id }
         } catch (e: Exception) {
             emptyList()
         }
