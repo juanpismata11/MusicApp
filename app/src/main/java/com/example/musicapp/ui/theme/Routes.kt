@@ -5,4 +5,5 @@ object Routes {
     const val Login = "login"
     const val Signup = "signup"
     const val Explore = "explore"
+    const val Library = "library"
 }

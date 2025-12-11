@@ -256,7 +256,7 @@ fun LikedSongsList(songs: List<SongDto>, mainColor: Color, secondaryColor: Color
                 Spacer(modifier = Modifier.width(16.dp))
                 Column {
                     Text(song.title, fontWeight = FontWeight.SemiBold, color = mainColor)
-                    Text("Álbum: ${song.album_id}", fontSize = 14.sp, color = secondaryColor)
+                    Text("Álbum: ${song.albumId}", fontSize = 14.sp, color = secondaryColor)
                 }
             }
             Divider(color = secondaryColor.copy(alpha = 0.3f))
@@ -302,7 +302,7 @@ fun LikedAlbumsList(albums: List<AlbumDto>, mainColor: Color, secondaryColor: Co
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 AsyncImage(
-                    model = album.cover_url,
+                    model = album.coverUrl,
                     contentDescription = album.title,
                     modifier = Modifier
                         .size(56.dp)
@@ -313,7 +313,7 @@ fun LikedAlbumsList(albums: List<AlbumDto>, mainColor: Color, secondaryColor: Co
                 Spacer(modifier = Modifier.width(16.dp))
                 Column {
                     Text(album.title, fontWeight = FontWeight.SemiBold, color = mainColor)
-                    Text("Artista ID: ${album.artist_id}", fontSize = 14.sp, color = secondaryColor)
+                    Text("Artista ID: ${album.artistId}", fontSize = 14.sp, color = secondaryColor)
                 }
             }
             Divider(color = secondaryColor.copy(alpha = 0.3f))
@@ -322,9 +322,9 @@ fun LikedAlbumsList(albums: List<AlbumDto>, mainColor: Color, secondaryColor: Co
 }
 
 // --- DATOS MOCK PARA EL PREVIEW ---
-val mockSong = SongDto(id = 1, title = "Mock Song", duration = "3:00", album_id = 1, artist_id = 1, audio_path = "")
+val mockSong = SongDto(id = 1, title = "Mock Song", duration = "3:00", albumId = 1, artistId = 1, audioUrl =  "")
 val mockArtist = ArtistDto(id = 1, name = "Mock Artist", bio = "", country = "", artist_pic = "")
-val mockAlbum = AlbumDto(id = 1, title = "Mock Album", description = "", category = "Pop", cover_url = "", artist_id = 1)
+val mockAlbum = AlbumDto(id = 1, title = "Mock Album", description = "", category = "Pop", coverUrl = "", artistId = 1)
 
 
 // --- PREVIEW (¡El que SÍ funcionará!) ---
