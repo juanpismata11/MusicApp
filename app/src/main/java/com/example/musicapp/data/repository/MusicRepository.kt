@@ -2,6 +2,7 @@ package com.example.musicapp.data.repository
 
 import com.example.musicapp.data.remote.data.AlbumDto
 import com.example.musicapp.data.remote.data.ArtistDto
+import com.example.musicapp.data.remote.data.LikesGroupedDto
 import com.example.musicapp.data.remote.data.SongDto
 import com.example.musicapp.data.remote.data.LoginRequestDto
 import com.example.musicapp.data.remote.data.SignupRequestDto
@@ -16,7 +17,9 @@ interface MusicRepository {
     suspend fun getArtistById(id: Int): ArtistDto?
     suspend fun getSongsByAlbum(id: Int): List<SongDto>
 
-    suspend fun getAllAlbums(): List<AlbumDto>
-    suspend fun getAllArtists(): List<ArtistDto>
-    suspend fun getAllSongs(): List<SongDto>
+    suspend fun getArtists(): Result<List<ArtistDto>>
+    suspend fun getAlbums(): Result<List<AlbumDto>>
+    suspend fun getSongs(): Result<List<SongDto>>
+
+    suspend fun getUserLikes(userId: Int): Result<LikesGroupedDto>
 }
