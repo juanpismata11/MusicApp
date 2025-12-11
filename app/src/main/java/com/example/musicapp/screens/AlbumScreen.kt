@@ -34,13 +34,14 @@ import com.example.musicapp.screens.components.TopNotchShapeComposable
 import com.example.musicapp.data.remote.data.AlbumDto
 import com.example.musicapp.data.remote.data.ArtistDto
 import com.example.musicapp.data.remote.data.SongDto
+import androidx.hilt.navigation.compose.hiltViewModel
 
 
 @Composable
 fun AlbumScreen(
     navController: NavController,
     albumId: Int,
-    viewModel: AlbumViewModel = viewModel()
+    viewModel: AlbumViewModel = hiltViewModel()
 ) {
     val state by remember { viewModel.state }
 

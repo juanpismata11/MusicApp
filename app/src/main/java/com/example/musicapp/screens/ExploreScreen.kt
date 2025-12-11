@@ -33,6 +33,7 @@ import com.example.musicapp.screens.components.AlbumMiniCard
 import com.example.musicapp.screens.components.SongsCard
 import com.example.musicapp.screens.components.TopNotchShapeComposable
 import com.example.musicapp.ui.theme.Routes
+import com.example.musicapp.presentation.explore.ExploreViewModel
 
 @Composable
 fun ExploreScreen(navController: NavController, viewModel: ExploreViewModel = viewModel()) {
@@ -153,11 +154,20 @@ fun ExploreScreen(navController: NavController, viewModel: ExploreViewModel = vi
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 rowSongs.forEach { song ->
-                                    SongsCard(
-                                        albumArtUrl = song.albumArtUrl ?: "https://via.placeholder.com/300.png",
-                                        title = song.title,
-                                        subtitle = song.subtitle
-                                    )
+                                    Box(
+                                        modifier = Modifier.clickable {
+                                            val id = song.albumId
+                                            if (id != null && id > 0) {
+                                                navController.navigate("album/$id")
+                                            }
+                                        }
+                                    ) {
+                                        SongsCard(
+                                            albumArtUrl = song.albumArtUrl ?: "https://via.placeholder.com/300.png",
+                                            title = song.title,
+                                            subtitle = song.subtitle
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -247,7 +257,8 @@ fun ExploreScreen(navController: NavController, viewModel: ExploreViewModel = vi
                                 albumTitle = title,
                                 artistName = artist,
                                 imageUrl = "https://via.placeholder.com/300.png",
-                                onClick = { navController.navigate("album/$it")
+                                onClick = {
+                                    navController.navigate("album/$id")
                                 }
                             )
                         }
@@ -267,8 +278,8 @@ fun ExploreScreen(navController: NavController, viewModel: ExploreViewModel = vi
                                 albumTitle = title,
                                 artistName = artist,
                                 imageUrl = "https://via.placeholder.com/300.png",
-                                onClick = { albumId ->
-                                    navController.navigate("album/$albumId")
+                                onClick = {
+                                    navController.navigate("album/$id")
                                 }
                             )
                         }

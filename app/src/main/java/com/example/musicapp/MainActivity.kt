@@ -15,6 +15,7 @@ import com.example.musicapp.screens.HomeScreen
 import com.example.musicapp.screens.LoginScreen
 import com.example.musicapp.screens.SignUpScreen
 import com.example.musicapp.screens.LibraryScreen
+import com.example.musicapp.screens.AlbumScreen
 import com.example.musicapp.ui.theme.MusicAppTheme
 import com.example.musicapp.ui.theme.Routes
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,6 +49,10 @@ class MainActivity : ComponentActivity() {
                             LibraryScreen(navController)
                         }
 
+                        composable("album/{albumId}") { backStackEntry ->
+                            val albumId = backStackEntry.arguments?.getString("albumId")?.toInt() ?: 0
+                            AlbumScreen(navController = navController, albumId = albumId)
+                        }
 
                         composable(Routes.Login) {
                             LoginScreen(

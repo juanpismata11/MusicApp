@@ -21,7 +21,7 @@ interface MusicApi {
     @GET("artists")
     suspend fun getArtists(): List<ArtistDto>
 
-    @GET("songs")
+    @GET("songs/songs")
     suspend fun getSongs(): List<SongDto>
 
     @POST("users")

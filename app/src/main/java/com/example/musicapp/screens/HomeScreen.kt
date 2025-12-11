@@ -223,7 +223,7 @@ fun HomeScreen(
                             ) {
                                 CardsHomeScreen(
                                     title = "Mi Libreria",
-                                    onClick = { /* Navegar a librería */ }
+                                    onClick = { navController.navigate(Routes.Library) }
                                 )
                                 CardsHomeScreen(
                                     title = "Favoritos",

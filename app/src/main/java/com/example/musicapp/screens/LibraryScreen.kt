@@ -54,7 +54,7 @@ fun LibraryScreen(
     var selectedTabIndex by remember { mutableStateOf(0) }
 
     val currentUserId = 1
-    val currentUsername = "Juan Pablo"
+    val currentUsername = "musikita_uwu"
 
     // --- LÓGICA DE CARGA DIRECTA CON RETROFIT ---
     LaunchedEffect(Unit) {
