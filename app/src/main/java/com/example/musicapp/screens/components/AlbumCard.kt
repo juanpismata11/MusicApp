@@ -15,6 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImage
 
 val CardBackgroundColor = Color(0xFFE5E5E5)
 val AlbumTitleColor = Color.Black
@@ -24,15 +25,18 @@ val HeaderColor = Color(0xFF4A4A4A)
 @Composable
 fun AlbumCard(
     albumTitle: String,
-    artistName: String
+    artistName: String,
+    albumImageUrl: String? = null // URL del álbum
 ) {
+    val DefaultAlbumImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqjGNmx3-Kx3DeJiNLf23JCEaA-jw7HQOKSw&s"
+
     val cornerRadius = 20.dp
 
     Box(
         modifier = Modifier
             .width(340.dp)
             .shadow(
-                elevation = 12.dp, // sombra normal agregada
+                elevation = 12.dp,
                 shape = RoundedCornerShape(cornerRadius),
                 ambientColor = Color.Black.copy(alpha = 0.18f),
                 spotColor = Color.Black.copy(alpha = 0.22f)
@@ -101,31 +105,13 @@ fun AlbumCard(
 
             Spacer(modifier = Modifier.width(16.dp))
 
-            Box(
+            AsyncImage(
+                model = albumImageUrl ?: DefaultAlbumImage,
+                contentDescription = "$albumTitle cover",
                 modifier = Modifier
                     .size(120.dp)
                     .clip(RoundedCornerShape(10.dp))
-                    .background(Color.Black),
-                contentAlignment = Alignment.Center
-            ) {
-                Text("IMAGEN", color = Color.White)
-            }
+            )
         }
-    }
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFFCCCCCC)
-@Composable
-fun AlbumCardStablePreview() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        AlbumCard(
-            albumTitle = "ARENA",
-            artistName = "Pixel Grip"
-        )
     }
 }

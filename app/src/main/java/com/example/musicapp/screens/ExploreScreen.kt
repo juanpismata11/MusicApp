@@ -4,24 +4,15 @@ import AlbumCard
 import Reproductor
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -35,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.musicapp.screens.components.AlbumMiniCard
@@ -43,7 +35,10 @@ import com.example.musicapp.screens.components.TopNotchShapeComposable
 import com.example.musicapp.ui.theme.Routes
 
 @Composable
-fun ExploreScreen(navController: NavController){
+fun ExploreScreen(navController: NavController, viewModel: ExploreViewModel = viewModel()) {
+
+    val songs = viewModel.songsWithAlbum
+    val loading = viewModel.loading
 
     val backgroundColor = Color(0xFF151727)
     val cardColor = Color(0xFFE5E7EF)
@@ -89,17 +84,13 @@ fun ExploreScreen(navController: NavController){
             modifier = Modifier
                 .fillMaxSize()
                 .padding(top = 80.dp)
-                .clip(TopNotchShapeComposable(
-                    cornerRadius = 16.dp,
-                    cutoutRadius = 20.dp
-                ))
+                .clip(TopNotchShapeComposable(cornerRadius = 16.dp, cutoutRadius = 20.dp))
                 .background(cardColor)
                 .verticalScroll(rememberScrollState())
         ){
 
             Column(
-                modifier = Modifier
-                    .padding(10.dp)
+                modifier = Modifier.padding(10.dp)
             ){
 
                 Row(
@@ -141,50 +132,38 @@ fun ExploreScreen(navController: NavController){
                         fontWeight = FontWeight.Bold
                     )
                 }
-                
+
+                // --- SONGS ROWS DINÁMICAS ---
                 Column(
                     modifier = Modifier
                         .fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 10.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ){
-                        SongsCard(
-                            albumArtUrl = "https://via.placeholder.com/300.png",
-                            title = "Stoned",
-                            subtitle = "Balloonerism - Mac Miller"
-                        )
-
-                        SongsCard(
-                            albumArtUrl = "https://via.placeholder.com/300.png",
-                            title = "Lost",
-                            subtitle = "channel ORANGE - Frank Ocean"
-                        )
+                    if (loading) {
+                        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                            CircularProgressIndicator()
+                        }
+                    } else {
+                        songs.chunked(2).forEach { rowSongs ->
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 10.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                rowSongs.forEach { song ->
+                                    SongsCard(
+                                        albumArtUrl = song.albumArtUrl ?: "https://via.placeholder.com/300.png",
+                                        title = song.title,
+                                        subtitle = song.subtitle
+                                    )
+                                }
+                            }
+                        }
                     }
 
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ){
-                        SongsCard(
-                            albumArtUrl = "https://via.placeholder.com/300.png",
-                            title = "Stoned",
-                            subtitle = "Balloonerism - Mac Miller"
-                        )
-
-                        SongsCard(
-                            albumArtUrl = "https://via.placeholder.com/300.png",
-                            title = "Stoned",
-                            subtitle = "Balloonerism - Mac Miller"
-                        )
-                    }
+                    Spacer(modifier = Modifier.height(24.dp))
 
                     Row(
                         Modifier
@@ -205,10 +184,14 @@ fun ExploreScreen(navController: NavController){
                             .padding(bottom = 12.dp),
                         horizontalArrangement = Arrangement.Center
                     ) {
-                        AlbumCard(
-                            albumTitle = "ARENA",
-                            artistName = "Pixel Grip"
-                        )
+                        viewModel.albumOfTheWeek?.let { album ->
+                            val artistName = viewModel.artists.find { it.id == album.artistId }?.name ?: "Unknown"
+                            AlbumCard(
+                                albumTitle = album.title ?: "Unknown",
+                                artistName = artistName,
+                                albumImageUrl = album.coverUrl ?: "https://via.placeholder.com/300.png"
+                            )
+                        }
                     }
 
                     Row(
@@ -276,6 +259,8 @@ fun ExploreScreen(navController: NavController){
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceEvenly
                     ) {
+                        //navController.navigate(Routes.AlbumDetail(albumId = 3))
+
                         albums.drop(2).take(2).forEach { (id, title, artist) ->
                             AlbumMiniCard(
                                 albumId = id,
@@ -290,8 +275,10 @@ fun ExploreScreen(navController: NavController){
                     }
                 }
             }
+
         }
     }
+
 }
 
 

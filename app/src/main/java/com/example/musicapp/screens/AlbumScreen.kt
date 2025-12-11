@@ -141,7 +141,7 @@ private fun AlbumContent(state: AlbumState) {
         }
 
         AsyncImage(
-            model = album.cover_url,
+            model = album.coverUrl,
             contentDescription = album.title,
             modifier = Modifier
                 .fillMaxWidth()
@@ -213,72 +213,3 @@ private fun AlbumContent(state: AlbumState) {
     }
 }
 
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun AlbumScreenPreview() {
-
-    val fakeAlbum = AlbumDto(
-        id = 1,
-        title = "Two Stars and The Dream Police",
-        description = "Preview description",
-        category = "Alternative",
-        cover_url = "https://picsum.photos/500",
-        artist_id = 10
-    )
-
-    val fakeArtist = ArtistDto(
-        id = 10,
-        name = "MK Gee",
-        bio = "Preview bio",
-        country = "USA",
-        artist_pic = null
-    )
-
-    val fakeSongs = listOf(
-        SongDto(
-            id = 1,
-            title = "Are You Looking Up",
-            duration = "120",
-            album_id = 1,
-            artist_id = 10,
-            audio_path = null
-        ),
-        SongDto(
-            id = 2,
-            title = "How Did You Sleep?",
-            duration = "130",
-            album_id = 1,
-            artist_id = 10,
-            audio_path = null
-        ),
-        SongDto(
-            id = 3,
-            title = "Alesis",
-            duration = "145",
-            album_id = 1,
-            artist_id = 10,
-            audio_path = null
-        ),
-        SongDto(
-            id = 4,
-            title = "Rylee & Erik",
-            duration = "150",
-            album_id = 1,
-            artist_id = 10,
-            audio_path = null
-        )
-    )
-
-    val previewState = AlbumState(
-        album = fakeAlbum,
-        artist = fakeArtist,
-        songs = fakeSongs,
-        isLoading = false,
-        error = null
-    )
-
-    Column(modifier = Modifier.fillMaxSize()) {
-        AlbumContent(state = previewState)
-    }
-}

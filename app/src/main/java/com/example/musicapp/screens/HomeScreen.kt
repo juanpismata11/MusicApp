@@ -1,5 +1,6 @@
 package com.example.musicapp.screens
 
+import Reproductor
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -92,6 +93,9 @@ fun HomeScreen(navController: NavController) {
     }
 
     var disabled by remember { mutableStateOf(false) }
+
+    val DefaultAlbumImage = "https://i.scdn.co/image/ab6761610000e5ebb828fe542e489aa79043f398"
+
 
 
     Box(
@@ -263,7 +267,7 @@ fun HomeScreen(navController: NavController) {
                             items(artists) { artist ->
                                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                     AsyncImage(
-                                        model = artist.artist_pic,
+                                        model = artist.artist_pic?: DefaultAlbumImage,
                                         contentDescription = artist.name,
                                         modifier = Modifier
                                             .size(60.dp)
@@ -351,6 +355,8 @@ fun HomeScreen(navController: NavController) {
                                     }
 
                             }
+                                Reproductor()
+
                         }
 
 
@@ -358,12 +364,11 @@ fun HomeScreen(navController: NavController) {
 
                     }
 
+                        Spacer(modifier = Modifier.weight(1f))
 
-
-
+                        Reproductor()
                 }
             }
-
 
 
 
