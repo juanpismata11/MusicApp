@@ -259,6 +259,8 @@ fun ExploreScreen(navController: NavController, viewModel: ExploreViewModel = vi
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceEvenly
                     ) {
+                        //navController.navigate(Routes.AlbumDetail(albumId = 3))
+
                         albums.drop(2).take(2).forEach { (id, title, artist) ->
                             AlbumMiniCard(
                                 albumId = id,

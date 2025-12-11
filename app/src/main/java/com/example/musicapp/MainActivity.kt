@@ -7,15 +7,18 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.musicapp.screens.ExploreScreen
 import com.example.musicapp.screens.HomeScreen
 import com.example.musicapp.screens.LoginScreen
 import com.example.musicapp.screens.SignUpScreen // <--- 1. IMPORTANTE: Importar la pantalla de registro
 import com.example.musicapp.ui.theme.MusicAppTheme
 import com.example.musicapp.ui.theme.Routes
+import com.example.musicapp.ui.theme.Routes.AlbumDetailScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -60,6 +63,14 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                             )
+                        }
+
+                        composable(
+                            route = "album/{albumId}",
+                            arguments = listOf(navArgument("albumId") { type = NavType.IntType })
+                        ) { backStackEntry ->
+                            val albumId = backStackEntry.arguments?.getInt("albumId") ?: 0
+                            AlbumDetailScreen(albumId = albumId)
                         }
                     }
                 }

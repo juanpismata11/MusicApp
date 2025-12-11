@@ -5,4 +5,8 @@ object Routes {
     const val Login = "login"
     const val Signup = "signup"
     const val Explore = "explore"
+
+    fun AlbumDetailScreen(albumId: Int): String {
+        return "product_detail/$albumId/"
+    }
 }
