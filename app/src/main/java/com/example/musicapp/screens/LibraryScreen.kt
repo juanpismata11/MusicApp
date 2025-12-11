@@ -31,7 +31,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.Icons
 
 // Colores de referencia
 val BackgroundColor = Color(0xFF151727)
@@ -95,7 +96,8 @@ fun LibraryScreen(
         isLoading = isLoading,
         error = error,
         selectedTabIndex = selectedTabIndex,
-        onTabSelected = { selectedTabIndex = it }
+        onTabSelected = { selectedTabIndex = it },
+        onNavigateBack = { navController.popBackStack() }
     )
 }
 
@@ -109,7 +111,8 @@ fun LibraryLayout(
     isLoading: Boolean,
     error: String?,
     selectedTabIndex: Int,
-    onTabSelected: (Int) -> Unit
+    onTabSelected: (Int) -> Unit,
+    onNavigateBack: () -> Unit
 ) {
     val tabs = listOf("Canciones", "Artistas", "Álbumes")
 
@@ -130,6 +133,14 @@ fun LibraryLayout(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                IconButton(onClick = onNavigateBack, modifier = Modifier.size(24.dp)) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Regresar a Home",
+                        tint = Color.White
+                    )
+                }
+
                 Text(
                     text = "Mi Biblioteca",
                     color = Color.White,
@@ -327,6 +338,7 @@ val mockArtist = ArtistDto(id = 1, name = "Mock Artist", bio = "", country = "",
 val mockAlbum = AlbumDto(id = 1, title = "Mock Album", description = "", category = "Pop", coverUrl = "", artistId = 1)
 
 
+
 // --- PREVIEW (¡El que SÍ funcionará!) ---
 @Preview(showBackground = true)
 @Composable
@@ -339,6 +351,7 @@ fun LibraryLayoutPreview() {
         isLoading = false,
         error = null,
         selectedTabIndex = 0,
-        onTabSelected = {}
+        onTabSelected = {},
+        onNavigateBack = {  }
     )
 }
