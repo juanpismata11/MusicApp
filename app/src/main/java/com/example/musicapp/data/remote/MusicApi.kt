@@ -27,7 +27,7 @@ interface MusicApi {
     @POST("users")
     suspend fun signup(@Body request: SignupRequestDto): UserDto
 
-    @POST("login")
+    @POST("login/")
     suspend fun login(@Body request: LoginRequestDto): UserDto
 
     @GET("users/{user_id}/likes")

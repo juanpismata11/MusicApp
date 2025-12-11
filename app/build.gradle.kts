@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 
     id("org.jetbrains.kotlin.kapt")
-    id("com.google.dagger.hilt.android") version "2.52"
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -68,6 +68,8 @@ dependencies {
 // Coil 3
     implementation("io.coil-kt.coil3:coil-compose:3.1.0")
     implementation("io.coil-kt.coil3:coil-network-ktor3:3.1.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.0")
+
 
 
 
@@ -76,6 +78,6 @@ dependencies {
 
     // HILT
     implementation("com.google.dagger:hilt-android:2.57.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.57.2")
+    kapt("com.google.dagger:hilt-android-compiler:2.57.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 }

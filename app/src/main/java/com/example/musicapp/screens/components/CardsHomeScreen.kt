@@ -34,7 +34,7 @@ fun CardsHomeScreen(
         Card(
             shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(containerColor = backgroundColor),
-            modifier = Modifier.size(160.dp)
+            modifier = Modifier.size(175.dp)
         ) {
             Box(
                 modifier = Modifier.fillMaxSize()
