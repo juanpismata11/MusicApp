@@ -38,9 +38,7 @@ val BackgroundColor = Color(0xFF151727)
 val CardColor = Color(0xFFE5E7EF)
 
 
-// =========================================================================
-// FUNCIÓN PRINCIPAL (MANEJA ESTADO Y LLAMADA A LA API)
-// =========================================================================
+
 
 @Composable
 fun LibraryScreen(
@@ -101,10 +99,6 @@ fun LibraryScreen(
     )
 }
 
-
-// =========================================================================
-// FUNCIÓN DE LAYOUT (SOLO UI - SEGURA PARA PREVIEW)
-// =========================================================================
 
 @Composable
 fun LibraryLayout(

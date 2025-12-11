@@ -297,8 +297,16 @@ fun HomeScreen(navController: NavController) {
                                     .padding(vertical = 12.dp),
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ){
-                                CardsHomeScreen(title = "Mi Libreria") //esto seria lo de favoritos
-                                CardsHomeScreen(title = "No se")
+
+                                CardsHomeScreen(
+                                    title = "Mi Libreria",
+                                    onClick = { navController.navigate(Routes.Library) }
+                                )
+
+                                CardsHomeScreen(
+                                    title = "No se",
+                                    onClick = {  }
+                                )
                             }
 
 

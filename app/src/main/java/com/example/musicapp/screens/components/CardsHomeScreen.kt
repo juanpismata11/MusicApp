@@ -1,5 +1,6 @@
 package com.example.musicapp.screens.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -26,7 +27,8 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun CardsHomeScreen(
-    title: String
+    title: String,
+    onClick: () -> Unit
 ){
     val backgroundColor = Color(0xFF151727)
 
@@ -34,7 +36,10 @@ fun CardsHomeScreen(
         Card(
             shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(containerColor = backgroundColor),
-            modifier = Modifier.size(175.dp)
+            modifier = Modifier
+                .size(175.dp)
+                .clickable(onClick = onClick)
+
         ) {
             Box(
                 modifier = Modifier.fillMaxSize()
