@@ -13,7 +13,6 @@ class MusicRepositoryImpl @Inject constructor(
     private val api: MusicApi
 ) : MusicRepository {
 
-
     override suspend fun login(loginRequest: LoginRequestDto): Result<UserDto> {
         return try {
             val response = api.login(loginRequest)
@@ -58,27 +57,30 @@ class MusicRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getAllAlbums(): List<AlbumDto> {
+    override suspend fun getAlbums(): Result<List<AlbumDto>> {
         return try {
-            api.getAlbums()
+            val result = api.getAlbums()
+            Result.success(result)
         } catch (e: Exception) {
-            emptyList()
+            Result.failure(e)
         }
     }
 
-    override suspend fun getAllArtists(): List<ArtistDto> {
+    override suspend fun getArtists(): Result<List<ArtistDto>> {
         return try {
-            api.getArtists()
+            val result = api.getArtists()
+            Result.success(result)
         } catch (e: Exception) {
-            emptyList()
+            Result.failure(e)
         }
     }
 
-    override suspend fun getAllSongs(): List<SongDto> {
+    override suspend fun getSongs(): Result<List<SongDto>> {
         return try {
-            api.getSongs()
+            val result = api.getSongs()
+            Result.success(result)
         } catch (e: Exception) {
-            emptyList()
+            Result.failure(e)
         }
     }
 }

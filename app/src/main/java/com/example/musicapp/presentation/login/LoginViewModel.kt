@@ -4,6 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.musicapp.data.local.SessionManager
 import com.example.musicapp.data.remote.data.LoginRequestDto
 import com.example.musicapp.data.repository.MusicRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +19,8 @@ data class LoginState(
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val repository: MusicRepository
+    private val repository: MusicRepository,
+    private val sessionManager: SessionManager
 ) : ViewModel() {
 
     private val _state = mutableStateOf(LoginState())
@@ -41,9 +43,11 @@ class LoginViewModel @Inject constructor(
             val result = repository.login(request)
 
             result.onSuccess { userDto ->
+                sessionManager.saveUserSession(userDto.id, userDto.username)
+
                 _state.value = LoginState(isSuccess = true)
             }.onFailure { exception ->
-                val errorMsg = if (exception.message?.contains("401") == true) {
+                val errorMsg = if (exception.message?.contains("401") == true || exception.message?.contains("400") == true) {
                     "Correo o contraseña incorrectos"
                 } else {
                     exception.message ?: "Error desconocido al iniciar sesión"

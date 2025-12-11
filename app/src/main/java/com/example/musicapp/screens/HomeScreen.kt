@@ -1,7 +1,6 @@
 package com.example.musicapp.screens
 
 import Reproductor
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -16,14 +15,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
@@ -32,12 +28,9 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -52,51 +45,28 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.CreationExtras
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil3.compose.AsyncImage
-import com.example.musicapp.data.remote.data.ArtistDto
-import com.example.musicapp.data.services.ArtistService
+import com.example.musicapp.presentation.home.HomeViewModel
 import com.example.musicapp.screens.components.CardsHomeScreen
 import com.example.musicapp.screens.components.TopNotchShapeComposable
 import com.example.musicapp.ui.theme.Routes
 import com.example.musicapp.ui.theme.gray50
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import kotlin.jvm.java
-import kotlin.reflect.KClass
-
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(
+    navController: NavController,
+    viewModel: HomeViewModel = hiltViewModel()
+) {
+    val state by viewModel.state.collectAsState()
+
     val backgroundColor = Color(0xFF151727)
     val cardColor = Color(0xFFE5E7EF)
-
-    var text by remember { mutableStateOf("") }
-
-    var artists by remember {
-        mutableStateOf(listOf<ArtistDto>())
-    }
-
-    var loading by remember {
-        mutableStateOf(true)
-    }
-
-    var error by remember {
-        mutableStateOf<String?>(null)
-    }
-
-    var disabled by remember { mutableStateOf(false) }
-
     val DefaultAlbumImage = "https://i.scdn.co/image/ab6761610000e5ebb828fe542e489aa79043f398"
 
-
+    var searchText by remember { mutableStateOf("") }
 
     Box(
         modifier = Modifier
@@ -104,12 +74,12 @@ fun HomeScreen(navController: NavController) {
             .background(backgroundColor)
             .padding(16.dp)
     ) {
-
         Column(
             modifier = Modifier.fillMaxWidth()
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(vertical = 40.dp),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
@@ -119,12 +89,9 @@ fun HomeScreen(navController: NavController) {
                     color = Color.White,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
-
                 )
-
             }
         }
-
 
         Column(
             modifier = Modifier
@@ -154,7 +121,7 @@ fun HomeScreen(navController: NavController) {
                     )
 
                     Text(
-                        text = "Juan Pablo",
+                        text = state.userName,
                         fontSize = 32.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(start = 20.dp)
@@ -169,8 +136,8 @@ fun HomeScreen(navController: NavController) {
                 )
 
                 OutlinedTextField(
-                    value = text,
-                    onValueChange = { text = it },
+                    value = searchText,
+                    onValueChange = { searchText = it },
                     placeholder = { Text("Busca artistas", color = gray50) },
                     leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search Icon", tint = gray50) },
                     singleLine = true,
@@ -188,92 +155,44 @@ fun HomeScreen(navController: NavController) {
                         .shadow(8.dp, RoundedCornerShape(20.dp))
                 )
 
-                LaunchedEffect(true) {
-                    try{
-                        val retrofit = Retrofit
-                            .Builder()
-                            .baseUrl("https://music-api-u681.onrender.com/")
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build()
-                        val service = retrofit.create(ArtistService::class.java)
-                        val result = async(Dispatchers.IO) {
-                            service.getAllArtists()
-                        }
-                        Log.i("HomeScreen","${result.await()}")
-                        artists = result.await()
-                        loading = false
-                    } catch(e: Exception){
-                        Log.i("HomeScreen",e.toString())
-                    }
-                }
-
-            if(loading){
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(cardColor)
-                    ,
-                    contentAlignment = Alignment.Center
-                ){
-                    CircularProgressIndicator()
-                }
-            } else {
-                if (error != null) {
+                if (state.isLoading) {
                     Box(
                         modifier = Modifier
-                            .fillMaxSize()
-                            .padding(20.dp),
+                            .fillMaxWidth()
+                            .height(100.dp),
                         contentAlignment = Alignment.Center
                     ) {
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Text(
-                                text = "Error",
-                                fontSize = 24.sp,
-                                fontWeight = FontWeight.Bold,
-                            )
-                            Text(
-                                text = error ?: "",
-                                fontSize = 16.sp,
-                                modifier = Modifier.padding(top = 8.dp)
-                            )
-                            androidx.compose.material3.Button(
-                                onClick = {
-                                    loading = true
-                                    error = null
-                                    disabled = true
-                                },
-                                enabled = !disabled,
-                                modifier = Modifier.padding(top = 16.dp)
-                            ) {
-                                Text(if (disabled) "Cargando..." else "Reintentar")
-                            }
-                        }
+                        CircularProgressIndicator(color = backgroundColor)
                     }
-                }
-
+                } else if (state.error != null) {
+                    Box(
+                        modifier = Modifier.fillMaxWidth().padding(20.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(text = state.error ?: "Error desconocido", color = Color.Red)
+                    }
+                } else {
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(top = 24.dp)
                             .background(cardColor)
-
                     ) {
                         LazyRow(
-                            modifier = Modifier
-                                .fillMaxWidth(),
+                            modifier = Modifier.fillMaxWidth(),
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(12.dp),
                         ) {
-                            items(artists) { artist ->
+                            items(state.artists) { artist ->
                                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                     AsyncImage(
-                                        model = artist.artist_pic?: DefaultAlbumImage,
+                                        model = artist.artist_pic ?: DefaultAlbumImage,
                                         contentDescription = artist.name,
+                                        contentScale = ContentScale.Crop, // Importante para que no se deforme
                                         modifier = Modifier
                                             .size(60.dp)
                                             .clip(CircleShape)
-                                            .background(Color.Gray),
-                                        error = null
+                                            .background(Color.Gray)
                                     )
                                     Text(
                                         text = artist.name,
@@ -286,7 +205,6 @@ fun HomeScreen(navController: NavController) {
                             }
                         }
 
-
                         Text(
                             text = "Deep dive into",
                             fontWeight = FontWeight.Bold,
@@ -296,15 +214,14 @@ fun HomeScreen(navController: NavController) {
 
                         Column(Modifier.fillMaxSize()) {
                             Row(
-                                modifier = Modifier.
-                                fillMaxWidth()
+                                modifier = Modifier
+                                    .fillMaxWidth()
                                     .padding(vertical = 12.dp),
                                 horizontalArrangement = Arrangement.SpaceBetween
-                            ){
-                                CardsHomeScreen(title = "Mi Libreria") //esto seria lo de favoritos
-                                CardsHomeScreen(title = "No se")
+                            ) {
+                                CardsHomeScreen(title = "Mi Libreria")
+                                CardsHomeScreen(title = "Favoritos")
                             }
-
 
                             Row {
                                 Card(
@@ -345,35 +262,20 @@ fun HomeScreen(navController: NavController) {
                                             )
                                         }
                                     }
-
+                                }
                             }
-                                Reproductor()
 
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Reproductor()
                         }
-
-
-
-
                     }
-
-                        Spacer(modifier = Modifier.weight(1f))
-
-                        Reproductor()
                 }
             }
-
-
-
-
-            }
-
         }
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen(navController = rememberNavController())
 }
